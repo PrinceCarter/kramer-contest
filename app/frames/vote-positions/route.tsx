@@ -1,3 +1,4 @@
+import Header from "@/app/components/Header";
 import { frames } from "../frames";
 import { Button } from "frames.js/next";
 import fs from "fs";
@@ -29,18 +30,18 @@ export const POST = frames(async () => {
 
   return {
     image: (
-      <div tw="bg-purple-800 text-white w-full h-full flex justify-center items-center flex-col p-12">
-        <h1
-          style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "1rem" }}
-        >
-          Vote Position
-        </h1>
-        <p style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>
-          Yes: {yesCount}
-        </p>
-        <p style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
-          No: {noCount}
-        </p>
+      <div tw="flex bg-blue-600 text-white w-full h-full flex flex-col justify-start items-start p-12">
+        <Header />
+        <div tw="flex flex-grow"></div>
+        <p tw="text-3xl mb-4">Aggregated Voting Positions:</p>
+        <div tw="flex w-full">
+          <div tw="flex bg-white text-blue-600 w-1/2 rounded-lg shadow-lg justify-center mr-2">
+            <h2 tw="text-4xl font-bold px-8 text-green-600">Yes: {yesCount}</h2>
+          </div>
+          <div tw="flex bg-white text-blue-800 w-1/2 rounded-lg shadow-lg justify-center ml-2">
+            <h2 tw="text-4xl font-bold px-8 text-red-600">No: {noCount}</h2>
+          </div>
+        </div>
       </div>
     ),
     buttons: [

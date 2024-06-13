@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
   if (votesData[userId]) {
     console.log("User has already voted:", userId);
     return NextResponse.json(
-      { message: "User has already voted" },
+      { message: "User has already voted", vote: votesData[userId] },
       { status: 400 }
     );
   }

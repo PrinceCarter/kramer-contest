@@ -1,6 +1,7 @@
 import { frames } from "./frames";
 import { Button } from "frames.js/next";
 import axios from "axios";
+import Header from "../components/Header";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -34,13 +35,25 @@ const frameHandler = frames(async (ctx: any) => {
         error.response &&
         error.response.status === 400
       ) {
+        const userVote = error.response.data.vote;
         return {
           status: 200,
           image: (
-            <div tw="bg-purple-800 text-white w-full h-full flex justify-center items-center flex-col p-12">
-              <span tw="text-4xl text-center font-bold mb-4 bg-black bg-opacity-50 p-8 rounded">
-                You already voted.
-              </span>
+            <div tw="bg-blue-600 text-white w-full h-full flex flex-col justify-start items-start p-12 font-roboto">
+              <Header />
+              <div tw="flex-grow"></div>
+              <p tw="text-3xl mb-4">You already voted:</p>
+              <div tw="flex bg-white text-blue-600 w-full rounded-lg shadow-lg justify-center items-center">
+                <h2 tw="text-4xl font-bold text-center px-8">
+                  <span
+                    style={{
+                      color: userVote === "Yes" ? "green" : "red",
+                    }}
+                  >
+                    {userVote}
+                  </span>
+                </h2>
+              </div>
             </div>
           ),
           buttons: [
@@ -74,10 +87,20 @@ const frameHandler = frames(async (ctx: any) => {
     return {
       status: 200,
       image: (
-        <div tw="bg-purple-800 text-white w-full h-full flex justify-center items-center flex-col p-12">
-          <span tw="text-4xl text-center font-bold mb-4 bg-black bg-opacity-50 p-8 rounded">
-            You voted: {voteOption}
-          </span>
+        <div tw="flex flex-col text-white bg-blue-600 w-full h-full justify-start items-start p-12">
+          <Header />
+          <div tw="flex flex-grow"></div>
+          <p tw="text-3xl mb-4">You voted:</p>
+          <div tw="flex bg-white text-blue-600 w-full rounded-lg shadow-lg justify-center items-center">
+            <h2
+              tw="text-4xl font-bold px-8"
+              style={{
+                color: voteOption === "Yes" ? "green" : "red",
+              }}
+            >
+              {voteOption}
+            </h2>
+          </div>
         </div>
       ),
       buttons: [
@@ -102,13 +125,23 @@ const frameHandler = frames(async (ctx: any) => {
 
   return {
     image: (
-      <div tw="bg-purple-800 text-white w-full h-full flex justify-center items-center flex-col p-12">
-        <h1 tw="text-4xl text-center font-bold mb-4 bg-black bg-opacity-50 p-8 rounded">
-          There will be over 10,000 Kramer predictions before 6/29 midnight.
-        </h1>
-        <p tw="text-lg bg-black bg-opacity-50 p-2 rounded">
-          Join the excitement and make your predictions now!
-        </p>
+      <div
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+        }}
+      >
+        <div tw="flex flex-col text-white bg-blue-600 w-full h-full justify-start items-start p-12">
+          <Header />
+          <div tw="flex flex-grow"></div>
+          <p tw="text-3xl mb-4">Make your prediction:</p>
+          <div tw="flex bg-white w-full rounded-lg shadow-xl">
+            <p tw="font-black text-blue-600 px-8">
+              Will there be over 10,000 Kramer predictions before 6/29 midnight?
+            </p>
+          </div>
+        </div>
       </div>
     ),
     buttons: [
