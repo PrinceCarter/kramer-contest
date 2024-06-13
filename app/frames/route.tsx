@@ -2,6 +2,8 @@ import { frames } from "./frames";
 import { Button } from "frames.js/next";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 const frameHandler = frames(async (ctx: any) => {
   // User has clicked on a button to vote
   if (ctx.request.method === "POST") {
@@ -21,7 +23,7 @@ const frameHandler = frames(async (ctx: any) => {
 
     // Record the vote
     try {
-      await axios.post("http://localhost:3000/api/votes", {
+      await axios.post(`${API_BASE_URL}/api/votes`, {
         userId,
         vote: voteOption,
       });
