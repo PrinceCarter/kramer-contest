@@ -8,9 +8,8 @@ const frameHandler = frames(async (ctx: any) => {
     // Check if the frame is valid
     if (!ctx.message || !ctx.message.isValid) {
       return {
-        status: 400,
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ message: "Invalid Frame" }),
+        image: "Error: Invalid Frame",
+        buttons: [],
       };
     }
 
@@ -64,9 +63,8 @@ const frameHandler = frames(async (ctx: any) => {
 
       // Internal server error
       return {
-        status: 500,
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ message: "Internal Server Error" }),
+        image: "Error: Internal Server Error",
+        buttons: [],
       };
     }
 
