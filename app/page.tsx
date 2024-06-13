@@ -23,5 +23,9 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-  return <span>Kramer Contest</span>;
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-8">Kramer Contest</h1>
+    </div>
+  );
 }
