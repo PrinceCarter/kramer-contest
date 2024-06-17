@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import * as file_system from "fs";
 import fs from "fs/promises";
 import path from "path";
 
+var dir = "/tmp";
+
 // Path to the file where votes are stored
-const votesFilePath = path.join(process.cwd(), "votes.json");
+const votesFilePath = path.join(dir, "votes.json");
 
 interface VotesData {
   [key: string]: string;
@@ -13,8 +16,13 @@ interface VotesData {
 // Function to read the votes data from the JSON file
 async function readVotesData(): Promise<VotesData> {
   try {
+    if (!file_system.existsSync(dir)) {
+      file_system.mkdirSync(dir);
+    }
     // Read the file contents and parse it as JSON
     const fileContents = await fs.readFile(votesFilePath, "utf8");
+    console.log("votesFilePath: ", votesFilePath);
+    console.log("fileContents: ", fileContents);
     return JSON.parse(fileContents);
   } catch (error) {
     // Properly check for known error types

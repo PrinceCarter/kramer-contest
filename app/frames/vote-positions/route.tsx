@@ -4,7 +4,9 @@ import { Button } from "frames.js/next";
 import fs from "fs";
 import path from "path";
 
-const votesFilePath = path.join(process.cwd(), "votes.json");
+var dir = "/tmp";
+
+const votesFilePath = path.join(dir, "votes.json");
 
 interface VotesData {
   [key: string]: string;
@@ -16,6 +18,9 @@ export const POST = frames(async () => {
   if (fs.existsSync(votesFilePath)) {
     const fileContents = fs.readFileSync(votesFilePath, "utf8");
     votesData = JSON.parse(fileContents);
+  } else {
+    fs.mkdirSync(dir);
+    console.log("Successfully created tmp");
   }
 
   // Get total count of Yes votes
